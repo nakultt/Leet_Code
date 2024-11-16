@@ -1,7 +1,7 @@
 #include<stdio.h>
-void main()
+int main()
 {
-    int n,num[100],i,j,x,t;
+    int n,num[100],i,j,x,t,found=0;
 
     printf("Enter the number of inputs : ");
     scanf("%d",&n);
@@ -9,20 +9,28 @@ void main()
     printf("Target = ");
     scanf("%d",&t);
 
-    for(x=0;x<n;x++)
-    {
-        printf("Enter the number %d : ",x+1);
-        scanf("%d",&num[x]);
+    for(i = 0; i < n; i++) 
+    { 
+        printf("Enter number %d: ", i+1); 
+        scanf("%d", &num[i]);
     }
     
-    for(i=0;i<n;i++)
+    for(i=0; i<n-1; i++)
     {
-        for(j=1;j<n+1;j++)
+        for(j=i+1; j<n; j++)
         {
             if(num[i]+num[j]==t)
             {
-                printf("%d,%d" ,i,j);
+                printf("%d,%d \n" ,i,j);
+                found=1;
             }
         }
     }
+
+    if(found != 1)
+    {
+        printf("None Found");
+    }
+
+    return 0;
 }
