@@ -1,0 +1,32 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: install dependencies
+      run: sudo apt-get install autoconf automake libtool
+    - name: make script executable
+      run: chmod +x generate_makefile.sh
+    - name: generate Makefile.am
+      run: ./generate_makefile.sh
+    - name: generate configure script
+      run: autoreconf -i
+    - name: configure
+      run: ./configure
+    - name: make
+      run: make
+    - name: make check
+      run: make check
+    - name: make distcheck
+      run: make distcheck
+    - name: run the program
+      run: ./myproject
